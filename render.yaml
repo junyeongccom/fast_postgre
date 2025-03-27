@@ -17,6 +17,6 @@ services:
       - key: POSTGRES_PORT
         value: 5432
       - key: POSTGRES_DB
-        value: database
+        value: mydatabase
       - key: DATABASE_URL
         value: postgresql://myuser:mypassword@db:5432/mydatabase
