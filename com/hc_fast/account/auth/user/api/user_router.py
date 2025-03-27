@@ -1,19 +1,13 @@
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, logger
 from fastapi.responses import JSONResponse
-from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from com.hc_fast.account.auth.user.api.user_controller import UserController
-from com.hc_fast.account.auth.user.model.user_schema import UserLoginSchema, UserSchema
+from com.hc_fast.account.auth.user.model.user_schema import UserLoginSchema
 from com.hc_fast.utils.creational.builder.db_builder import get_db
-import logging
 import traceback
-
-# 로거 설정
-logger = logging.getLogger(__name__)
 
 router = APIRouter()
 controller = UserController()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 @router.post("/login")

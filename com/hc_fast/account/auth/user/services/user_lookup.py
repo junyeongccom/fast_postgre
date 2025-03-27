@@ -4,7 +4,6 @@ from com.hc_fast.account.auth.user.repository.find_user import get_check_user_id
 from com.hc_fast.utils.creational.abstract.abstract_service import AbstractService
 import traceback
 import logging
-import socket
 import time
 
 # 로거 설정

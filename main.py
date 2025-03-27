@@ -2,6 +2,9 @@ from fastapi import Depends, FastAPI
 from fastapi.responses import HTMLResponse
 from com.hc_fast.app_router import router as app_router
 from fastapi.middleware.cors import CORSMiddleware  
+from com.hc_fast.utils.creational.builder.db_builder import get_db
+
+
 
 # ✅ FastAPI 애플리케이션 생성
 app = FastAPI()
@@ -32,7 +35,10 @@ async def home():
     </html>
     """
 # ✅ DB 연결 테스트용 엔드포인트
-#@app.get("/health/db")
-#async def test_db_connection(db=Depends(get_db)):
-    result = await db.fetch("SELECT 1;")
-    return {"db_check": result}
+@app.get("/health/db")
+async def test_db_connection(db = Depends(get_db)):
+    try:
+        result = await db.fetch("SELECT 1;")
+        return {"db_connection": True, "result": result}
+    except Exception as e:
+        return {"db_connection": False, "error": str(e)}

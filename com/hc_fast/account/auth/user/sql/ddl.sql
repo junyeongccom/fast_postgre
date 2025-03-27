@@ -1,4 +1,4 @@
-CREATE TABLE members (
+CREATE TABLE user (
     user_id VARCHAR(15) PRIMARY KEY,
     email VARCHAR(20) UNIQUE NOT NULL,
     password VARCHAR(15) NOT NULL,
