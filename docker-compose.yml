@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres
+    container_name: hc_postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    container_name: hc_fastapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql+asyncpg://myuser:mypassword@db:5432/mydatabase
+
+volumes:
+  pgdata:
