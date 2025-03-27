@@ -1,5 +1,4 @@
-# 기존 내용 유지
-FROM python:3.12.7-slim
+FROM python:3.12.7
 WORKDIR /app
 
 # com 폴더도 복사해줌
