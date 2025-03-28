@@ -4,8 +4,9 @@ from fastapi.responses import HTMLResponse
 from com.hc_fast.app_router import router as app_router
 from fastapi.middleware.cors import CORSMiddleware  
 from com.hc_fast.utils.creational.builder.db_builder import get_db
+from dotenv import load_dotenv
 
-
+load_dotenv()
 
 # ✅ FastAPI 애플리케이션 생성
 app = FastAPI()
