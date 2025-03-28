@@ -1,6 +1,6 @@
 from com.hc_fast.account.auth.user.repository.find_user import get_check_user_id_stmt, get_login_stmt
 from com.hc_fast.utils.creational.abstract.abstract_service import AbstractService
-from sqlalchemy.exc import OperationalError, SQLAlchemyError
+from sqlalchemy.exc import OperationalError
 from com.hc_fast.utils.config.security.jwt_config import create_access_token, create_refresh_token
 import time
 import logging
@@ -68,19 +68,11 @@ class Login(AbstractService):
             refresh_token = create_refresh_token(data={"sub": logged_in_user["user_id"]})
             print("🗝️🗝️🗝️access_token : ", access_token)
             print("🗝️🗝️🗝️refresh_token : ", refresh_token)
-            response.set_cookie(self,
-                key="refresh_token",
-                value=refresh_token,
-                httponly=True,
-                secure=True,
-                samesite="strict",
-                path="/",
-                max_age=60 * 60 * 24 * 7
-            )
-
             return {
                 "status": "success",
+                "message": "로그인 성공입니다",
                 "access_token": access_token,
+                "refresh_token": refresh_token,
                 "user": {"user_id": logged_in_user["user_id"]}
             }
 

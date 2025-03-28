@@ -15,13 +15,12 @@ logger = logging.getLogger(__name__)
 async def handle_user(
     user_schema: UserLoginSchema = Body(...), 
     db: Connection = Depends(get_db),
-    response = Response
 ):
     logger.info(f"🔐 로그인 요청 받음: 사용자 ID={user_schema.user_id}")
     
     try:
         # ✅ response 전달
-        result = await controller.login(user_schema=user_schema, db=db, response = response)
+        result = await controller.login(user_schema=user_schema, db=db)
         
         if result.get("status") == "success":
             logger.info(f"🎯 로그인 성공: 사용자 ID={user_schema.user_id}")

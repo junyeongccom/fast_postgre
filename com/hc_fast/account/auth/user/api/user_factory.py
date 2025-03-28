@@ -12,8 +12,8 @@ class UserFactory:
     }
 
     @staticmethod
-    async def create(strategy, response : Response,  **kwargs):
+    async def create(strategy,  **kwargs):
         instance = UserFactory._strategy_map[strategy]
         if not instance:
             raise Exception("invalid strategy")
-        return await instance.handle(response = response, **kwargs)
+        return await instance.handle(**kwargs)
