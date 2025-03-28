@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, Depends, logger
 from fastapi.responses import JSONResponse
-from sqlalchemy.ext.asyncio import AsyncSession
+from asyncpg import Connection
 from com.hc_fast.account.auth.user.api.user_controller import UserController
 from com.hc_fast.account.auth.user.model.user_schema import UserLoginSchema
 from com.hc_fast.utils.creational.builder.db_builder import get_db
@@ -13,7 +13,7 @@ controller = UserController()
 @router.post("/login")
 async def handle_user(
     user_schema: UserLoginSchema = Body(...), 
-    db: AsyncSession = Depends(get_db)):
+    db: Connection = Depends(get_db)):
     
     logger.info(f"🔐 로그인 요청 받음: 사용자 ID={user_schema.user_id}")
     

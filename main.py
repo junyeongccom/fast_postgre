@@ -1,3 +1,4 @@
+from asyncpg import Connection
 from fastapi import Depends, FastAPI
 from fastapi.responses import HTMLResponse
 from com.hc_fast.app_router import router as app_router
@@ -20,10 +21,6 @@ app.add_middleware(
 # ✅ 라우터 등록
 app.include_router(app_router, prefix="/api")
 
-def current_time():
-    from datetime import datetime
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
 # ✅ 루트 경로
 @app.get("/", response_class=HTMLResponse)
 async def home():
@@ -36,7 +33,7 @@ async def home():
     """
 # ✅ DB 연결 테스트용 엔드포인트
 @app.get("/health/db")
-async def test_db_connection(db = Depends(get_db)):
+async def test_db_connection(db : Connection = Depends(get_db)):
     try:
         result = await db.fetch("SELECT 1;")
         return {"db_connection": True, "result": result}
