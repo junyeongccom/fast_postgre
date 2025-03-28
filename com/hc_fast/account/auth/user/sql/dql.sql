@@ -1,6 +1,6 @@
-SELECT * FROM member;
+SELECT * FROM users;
 
 SELECT *
-FROM members
+FROM users
 WHERE user_id = 'chun' AND password = '123456';
 ; 

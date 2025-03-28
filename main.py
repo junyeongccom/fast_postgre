@@ -5,6 +5,12 @@ from com.hc_fast.app_router import router as app_router
 from fastapi.middleware.cors import CORSMiddleware  
 from com.hc_fast.utils.creational.builder.db_builder import get_db
 from dotenv import load_dotenv
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
 
 load_dotenv()
 

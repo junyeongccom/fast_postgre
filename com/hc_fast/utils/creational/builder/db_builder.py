@@ -62,6 +62,10 @@ class AsyncDatabase:
     async def fetch(self, query, *args):
         async with self.get_db() as conn:
             return await conn.fetch(query, *args)
+    
+    async def execute(self, query, *args):
+        async with self.get_db() as conn:
+            return await conn.execute(query, *args)
 
     async def close(self):
         await self.pool.close()

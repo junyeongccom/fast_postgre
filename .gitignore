@@ -1,0 +1,56 @@
+# ⛔️ Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ⛔️ Virtual environments
+venv/
+.env/
+.env.*  # 예: .env.dev, .env.prod 등
+
+# ⛔️ VSCode 설정 (선택사항)
+.vscode/
+
+# ⛔️ Docker
+*.log
+docker-command.txt
+branch_command.txt
+
+# ⛔️ OS 관련
+.DS_Store
+Thumbs.db
+
+# ⛔️ 테스트/빌드
+*.egg-info/
+dist/
+build/
+
+# ⛔️ PyInstaller
+*.spec
+
+# ⛔️ Jupyter Notebook 체크포인트
+.ipynb_checkpoints/
+
+# ⛔️ mypy / coverage / pytest / pylint
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+.pyre/
+
+# ⛔️ SQLite DB 파일 (있다면)
+*.sqlite3
+
+# ⛔️ 기타 캐시
+*.log
+*.pot
+*.mo
+*.pid
+*.bak
+*.swp
+*.tmp
+*.~*
+
+# ⛔️ Render.com or Heroku 관련 임시 파일
+render.yaml

@@ -1,8 +1,7 @@
 from com.hc_fast.account.auth.user.repository.find_user import get_check_user_id_stmt, get_login_stmt
 from com.hc_fast.utils.creational.abstract.abstract_service import AbstractService
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
-from sqlalchemy import Result
-from com.hc_fast.utils.config.security.jwt_config import create_access_token, create_refresh_token  # <- 유틸 임포트
+from com.hc_fast.utils.config.security.jwt_config import create_access_token, create_refresh_token
 import time
 import logging
 import traceback
@@ -26,8 +25,8 @@ class Login(AbstractService):
             for attempt in range(max_attempts):
                 try:
                     stmt, params = get_check_user_id_stmt(user_id)
-                    result: Result = await db.execute(stmt, params)
-                    user_exists = result.fetchone()
+                    rows = await db.fetch(stmt, *params)
+                    user_exists = rows[0] if rows else None
                     break
                 except OperationalError as e:
                     if "Name or service not known" in str(e) or "could not translate host name" in str(e):
@@ -47,8 +46,8 @@ class Login(AbstractService):
             for attempt in range(max_attempts):
                 try:
                     stmt, params = get_login_stmt(user_id, password)
-                    result: Result = await db.execute(stmt, params)
-                    logged_in_user = result.fetchone()
+                    rows = await db.fetch(stmt, *params)
+                    logged_in_user = rows[0] if rows else None
                     break
                 except OperationalError as e:
                     if "Name or service not known" in str(e) or "could not translate host name" in str(e):
@@ -65,10 +64,11 @@ class Login(AbstractService):
                 return {"status": "error", "message": "비밀번호가 일치하지 않습니다", "user": None}
 
             # 3단계: 토큰 발급
-            access_token = create_access_token(data={"sub": logged_in_user.user_id})
-            refresh_token = create_refresh_token(data={"sub": logged_in_user.user_id})
-
-            response.set_cookie(
+            access_token = create_access_token(data={"sub": logged_in_user["user_id"]})
+            refresh_token = create_refresh_token(data={"sub": logged_in_user["user_id"]})
+            print("🗝️🗝️🗝️access_token : ", access_token)
+            print("🗝️🗝️🗝️refresh_token : ", refresh_token)
+            response.set_cookie(self,
                 key="refresh_token",
                 value=refresh_token,
                 httponly=True,
@@ -81,7 +81,7 @@ class Login(AbstractService):
             return {
                 "status": "success",
                 "access_token": access_token,
-                "user": {"user_id": logged_in_user.user_id}
+                "user": {"user_id": logged_in_user["user_id"]}
             }
 
         except Exception as e:
