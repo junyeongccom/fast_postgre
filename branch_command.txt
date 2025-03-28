@@ -1,3 +1,9 @@
+원격 저장소 변경 방법
+1. 기존 원격 url확인
+   git remote -v
+2. 기존 원격 저장소 URL 수정
+   git remote set-url origin (깃 링크)
+
 협업자와 함께 작업할 때 추가 팁
 1. 작업 전 항상 최신 코드 확인
    git pull                     # 원격 저장소의 최신 변경사항 가져오기
