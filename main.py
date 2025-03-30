@@ -51,9 +51,3 @@ async def test_db_connection(db : Connection = Depends(get_db)):
     except Exception as e:
         return {"db_connection": False, "error": str(e)}
 
-if __name__ == "__main__":
-    import uvicorn
-    import os
-
-    port = int(os.getenv("PORT", 8000))  # Railway가 이 값을 주입함
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
