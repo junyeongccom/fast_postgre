@@ -11,7 +11,7 @@ class DBConfigSingleton:
 
     def _initialize(self):
         self.user = os.getenv("POSTGRES_USER")
-        self.password = os.getenv("POSTGRES_PASSWORD", "BBuCkoCtiSYdAxdxwbDTjKtCjOjlSUyh")
+        self.password = os.getenv("POSTGRES_PASSWORD")
         self.host = os.getenv("POSTGRES_HOST", "localhost")
         self.port = os.getenv("POSTGRES_PORT", "5432")
         self.database = os.getenv("POSTGRES_DB")
