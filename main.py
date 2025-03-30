@@ -9,6 +9,8 @@ from com.hc_fast.utils.creational.builder.db_builder import get_db
 from dotenv import load_dotenv
 import logging
 
+print("🔥 main.py started")
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
