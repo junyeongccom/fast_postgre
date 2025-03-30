@@ -18,6 +18,7 @@ logging.basicConfig(
 
 origins = [
     "http://localhost:3000",  # ✅ 프론트엔드 도메인 정확히 명시
+    "https://www.junyeongc.com"
 ]
 
 # ✅ FastAPI 애플리케이션 생성
@@ -25,7 +26,7 @@ app = FastAPI()
 # ✅ CORS 설정 추가
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # 🔥 모든 도메인에서 요청 허용 (보안상 필요하면 특정 도메인만 허용)
+    allow_origins=origins,  # 🔥 특정 도메인에서 요청 허용 (보안상 필요하면 특정 도메인만 허용)
     allow_credentials=True,
     allow_methods=["*"],  # ✅ 모든 HTTP 메서드 허용 (POST, OPTIONS 등)
     allow_headers=["*"],  # ✅ 모든 헤더 허용
