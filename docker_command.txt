@@ -5,6 +5,7 @@ docker images
 docker start backend
 docker start database
 docker exec -it hc_postgres psql -U myuser -d mydatabase
+docker exec -it hc_postgres psql -U myuser -d mydatabase -c "\dt"
 docker exec -it backend bash
 docker logs -f hc_fastapi
 docker logs -f --tail 500 hc_fastapi
