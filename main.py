@@ -1,6 +1,8 @@
+import os
 from asyncpg import Connection
 from fastapi import Depends, FastAPI
 from fastapi.responses import HTMLResponse
+import uvicorn
 from com.hc_fast.app_router import router as app_router
 from fastapi.middleware.cors import CORSMiddleware  
 from com.hc_fast.utils.creational.builder.db_builder import get_db
@@ -51,3 +53,7 @@ async def test_db_connection(db : Connection = Depends(get_db)):
     except Exception as e:
         return {"db_connection": False, "error": str(e)}
 
+if __name__ == "__main__":
+
+    port = int(os.getenv("PORT", 8000))  # Railway가 PORT 주입함. 없으면 기본값 8000
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
