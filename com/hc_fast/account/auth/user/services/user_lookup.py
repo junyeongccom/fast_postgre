@@ -1,3 +1,5 @@
+import hashlib
+from com.hc_fast.utils.creational.builder import redis_builder
 from com.hc_fast.account.auth.user.repository.find_user import get_check_user_id_stmt, get_login_stmt
 from com.hc_fast.utils.creational.abstract.abstract_service import AbstractService
 from sqlalchemy.exc import OperationalError
@@ -68,11 +70,16 @@ class Login(AbstractService):
             refresh_token = create_refresh_token(data={"sub": logged_in_user["user_id"]})
             print("🗝️🗝️🗝️access_token : ", access_token)
             print("🗝️🗝️🗝️refresh_token : ", refresh_token)
+            # ✅ redis에 refresh토큰 저장, 토큰 만료 시간은 예: 7일 (초 단위)
+            refresh_token_key = f"refresh_token:{logged_in_user['user_id']}"
+            refresh_token_ttl = 60 * 60 * 24 * 7  # 7일
+            hashed_token = hashlib.sha256(refresh_token.encode()).hexdigest()
+            redis_builder.setex(refresh_token_key, refresh_token_ttl, hashed_token)
+
             return {
                 "status": "success",
                 "message": "로그인 성공입니다",
                 "access_token": access_token,
-                "refresh_token": refresh_token,
                 "user": {"user_id": logged_in_user["user_id"]}
             }
 

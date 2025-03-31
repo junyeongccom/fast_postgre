@@ -1,4 +1,3 @@
-from fastapi import Response
 from com.hc_fast.account.auth.user.api.user_factory import UserFactory
 from com.hc_fast.account.auth.user.model.user_action import UserAction
 

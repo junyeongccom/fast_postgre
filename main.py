@@ -6,7 +6,10 @@ import uvicorn
 from com.hc_fast.app_router import router as app_router
 from fastapi.middleware.cors import CORSMiddleware  
 from com.hc_fast.utils.creational.builder.db_builder import get_db
+from com.hc_fast.utils.creational.builder.redis_builder import redis_client
 import logging
+
+from com.hc_fast.utils.creational.singleton.redis_singleton import REDIS_URL
 
 print("🔥 main.py started")
 
@@ -58,3 +61,9 @@ if __name__ == "__main__":
 
     port = int(os.getenv("PORT", 8000))  # Railway가 PORT 주입함. 없으면 기본값 8000
     uvicorn.run("main:app", host="0.0.0.0", port=port)
+
+@app.get("/health/redis")
+def ping_redis():
+    redis_client.set("ping", "pong", ex=10)
+    print("🔗 Redis URL:", REDIS_URL)
+    return {"message": redis_client.get("ping")}
