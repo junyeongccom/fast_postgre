@@ -1,5 +1,5 @@
 import hashlib
-from com.hc_fast.utils.creational.builder import redis_builder
+from com.hc_fast.utils.creational.builder.redis_builder import redis_client
 from com.hc_fast.account.auth.user.repository.find_user import get_check_user_id_stmt, get_login_stmt
 from com.hc_fast.utils.creational.abstract.abstract_service import AbstractService
 from sqlalchemy.exc import OperationalError
@@ -74,7 +74,7 @@ class Login(AbstractService):
             refresh_token_key = f"refresh_token:{logged_in_user['user_id']}"
             refresh_token_ttl = 60 * 60 * 24 * 7  # 7일
             hashed_token = hashlib.sha256(refresh_token.encode()).hexdigest()
-            redis_builder.setex(refresh_token_key, refresh_token_ttl, hashed_token)
+            redis_client.setex(refresh_token_key, refresh_token_ttl, hashed_token)
 
             return {
                 "status": "success",

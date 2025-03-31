@@ -1,7 +1,10 @@
 import os
-from jose import jwt
+from fastapi import HTTPException, status
+from jose import JWTError, jwt
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
+
+from com.hc_fast.utils.config.security.secret_config import ALGORITHM, SECRET_KEY
 
 load_dotenv()
 
@@ -34,3 +37,14 @@ def create_refresh_token(data: dict, expires_days: int = 7):
 
     encoded_jwt = jwt.encode(to_encode, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
     return encoded_jwt
+
+def decode_access_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="유효하지 않은 인증 토큰입니다.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )

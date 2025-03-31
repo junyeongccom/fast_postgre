@@ -1,6 +1,9 @@
 from fastapi import APIRouter, Body, Depends, Response 
 from fastapi.responses import JSONResponse
 from asyncpg import Connection
+from fastapi import Depends, APIRouter
+from com.hc_fast.utils.config.security.jwt_config import decode_access_token
+from com.hc_fast.utils.config.security.security import oauth2_scheme
 from com.hc_fast.account.auth.user.api.user_controller import UserController
 from com.hc_fast.account.auth.user.model.user_schema import UserLoginSchema
 from com.hc_fast.utils.creational.builder.db_builder import get_db
@@ -59,3 +62,8 @@ async def handle_user(
                 "user": None
             }
         )
+    
+@router.get("/me")
+async def read_users_me(token: str = Depends(oauth2_scheme)):
+    payload = decode_access_token(token)
+    return {"user": payload.get("sub")}
