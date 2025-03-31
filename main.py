@@ -57,13 +57,13 @@ async def test_db_connection(db : Connection = Depends(get_db)):
     except Exception as e:
         return {"db_connection": False, "error": str(e)}
 
-if __name__ == "__main__":
-
-    port = int(os.getenv("PORT", 8000))  # Railway가 PORT 주입함. 없으면 기본값 8000
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
-
 @app.get("/health/redis")
 def ping_redis():
     redis_client.set("ping", "pong", ex=10)
     print("🔗 Redis URL:", REDIS_URL)
     return {"message": redis_client.get("ping")}
+
+if __name__ == "__main__":
+
+    port = int(os.getenv("PORT", 8000))  # Railway가 PORT 주입함. 없으면 기본값 8000
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
