@@ -61,5 +61,7 @@ EX. 팀원 A: feature/login
    git checkout backup/날짜           # 백업 브랜치로 전환
    git checkout -b recovery/날짜      # 복구용 새 브랜치 생성
 
-//
-//
+git레퍼지토리에서 .env 관련된 파일 지우는 법
+git rm --cached .env .env.production
+git commit -m "🔒 Remove .env and .env.production from tracking"
+git push origin main
