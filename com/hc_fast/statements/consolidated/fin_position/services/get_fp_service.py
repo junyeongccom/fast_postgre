@@ -1,4 +1,4 @@
-def get_bs_template():
+def get_fp_service():
     return [
         {"id": 1, "name": "자산", "indent": 0},
         {"id": 2, "name": "유동자산", "indent": 1},

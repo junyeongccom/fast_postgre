@@ -1,5 +1,58 @@
-INSERT INTO users (user_id, email, password, name) VALUES
-('chun', 'junyeongc1000@gmail.com', '123456', '천준영'),
-('skyyy', 'skyyy1123@gmail.com', '123', '김하늘'),
-('user03', 'user03@example.com', 'pass9876', 'Charlie');
+[
+  {"id": 1, "name": "자산", "indent": 0},
+  {"id": 2, "name": "유동자산", "indent": 1},
+  {"id": 3, "name": "현금및현금성자산", "indent": 2},
+  {"id": 4, "name": "단기금융상품", "indent": 2},
+  {"id": 5, "name": "단기투자자산", "indent": 2},
+  {"id": 6, "name": "매출채권", "indent": 2},
+  {"id": 7, "name": "기타수취채권", "indent": 2},
+  {"id": 8, "name": "기타금융자산", "indent": 2},
+  {"id": 9, "name": "재고자산", "indent": 2},
+  {"id": 10, "name": "당기법인세자산", "indent": 2},
+  {"id": 11, "name": "매각예정자산", "indent": 2},
+  {"id": 12, "name": "기타유동자산", "indent": 2},
+  {"id": 13, "name": "비유동자산", "indent": 1},
+  {"id": 14, "name": "관계기업 및 공동기업투자", "indent": 2},
+  {"id": 15, "name": "장기투자자산", "indent": 2},
+  {"id": 16, "name": "기타수취채권", "indent": 2},
+  {"id": 17, "name": "기타금융자산", "indent": 2},
+  {"id": 18, "name": "유형자산", "indent": 2},
+  {"id": 19, "name": "사용권자산", "indent": 2},
+  {"id": 20, "name": "무형자산", "indent": 2},
+  {"id": 21, "name": "투자부동산", "indent": 2},
+  {"id": 22, "name": "이연법인세자산", "indent": 2},
+  {"id": 23, "name": "종업원급여자산", "indent": 2},
+  {"id": 24, "name": "기타비유동자산", "indent": 2},
+  {"id": 25, "name": "자산총계", "indent": 0}
+]
 
+WITH company AS (
+  SELECT '11111111-1111-1111-1111-111111111111'::UUID AS company_id
+)
+INSERT INTO fin_position (id, company_id, name, indent)
+VALUES 
+  (uuid_generate_v4(), (SELECT company_id FROM company), '자산', 0),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '유동자산', 1),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '현금및현금성자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '단기금융상품', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '단기투자자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '매출채권', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '기타수취채권', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '기타금융자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '재고자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '당기법인세자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '매각예정자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '기타유동자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '비유동자산', 1),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '관계기업 및 공동기업투자', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '장기투자자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '기타수취채권', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '기타금융자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '유형자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '사용권자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '무형자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '투자부동산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '이연법인세자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '종업원급여자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '기타비유동자산', 2),
+  (uuid_generate_v4(), (SELECT company_id FROM company), '자산총계', 0);
