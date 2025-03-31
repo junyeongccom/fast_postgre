@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from com.hc_fast.statements.consolidated.fin_position.model.fp_schema import FpSchema
-from com.hc_fast.statements.consolidated.fin_position.services.fp_lookup import get_bs_template
+from com.hc_fast.statements.consolidated.fin_position.services.fp_get import get_bs_template
 
 
 router = APIRouter()

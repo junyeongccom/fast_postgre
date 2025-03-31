@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from com.hc_fast.statements.consolidated import consolidated_router
+from com.hc_fast.statements.consolidated.consolidated_router import consolidated_router
 
 statements_router = APIRouter()
 
