@@ -1,3 +1,21 @@
+from typing import List
+from uuid import UUID
+from com.hc_fast.statements.consolidated.fin_position.model.fp_schema import FpSchema
+
+class GetFpService:
+    def __init__(self, db):
+        self.db = db
+
+    async def get_fp(self, company_id: UUID) -> List[FpSchema]:
+        query = """
+            SELECT id, name, indent 
+            FROM bs_template
+            WHERE company_id = $1
+            ORDER BY id
+        """
+        records = await self.db.fetch(query, company_id)
+        return [FpSchema(**record) for record in records]
+
 def get_fp_service():
     return [
         {"id": 1, "name": "자산", "indent": 0},
